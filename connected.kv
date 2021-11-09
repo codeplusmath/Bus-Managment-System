@@ -1,0 +1,1089 @@
+#:import Snackbar kivymd.uix.snackbar.Snackbar
+
+<Separator@Widget>:
+    canvas:
+        Color:
+            rgba: 0, 0, 0, .4
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<HSeparator@Separator>:
+    size_hint_y: None
+    height: dp(1)
+
+<MySeparator@Widget>:
+    canvas:
+        Color:
+            rgba: 0, 0, 0, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<HoSeparator@MySeparator>:
+    size_hint_y: None
+    height: dp(1)
+
+
+<Home>:
+    BoxLayout:
+        id: Home
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+			title: 'Bus Managment System'
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+	ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+			
+		BoxLayout:
+			orientation: 'vertical'
+			pos_hints: (None, None)
+			size_hint_y: None
+			spacing:20
+			padding: [20,30,25,150]
+            height: self.minimum_height
+			
+			MDLabel:
+                text: 'Home'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                color: rgba("#0e1574ff")
+						
+			BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .55,"center_y": .5}
+                spacing:10
+				MDRaisedButton:
+					valign:'center'
+					text: 'Bus Details'
+					font_size: '20sp'
+					size_hint_y: None
+					font_name: 'VarelaRound'
+					on_release: root.gobusdetails()
+				
+				MDRaisedButton:
+					valign:'center'
+					text: 'Station'
+					font_size: '20sp'
+					size_hint_y: None
+					font_name: 'VarelaRound'
+					on_release: root.gostation()
+				
+				MDRaisedButton:
+					valign:'center'
+					text: 'Employee'
+					font_size: '20sp'
+					size_hint_y: None
+					font_name: 'VarelaRound'
+					on_release: root.goemployee()
+				
+				MDRaisedButton:
+					valign:'center'
+					text: 'Ticket Counter'
+					font_size: '20sp'
+					size_hint_y: None
+					size_hint_y: None
+					font_name: 'VarelaRound'
+					on_release: root.goticketcounter()
+			
+
+<Station>:
+    BoxLayout:
+        id: Station
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+			title: 'Bus Managment System'
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394 ,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20,30,25,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+			
+            MDLabel:
+                text: 'Station'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+				pos_hint: {"center_y": .5 ,"center_x": .52}
+                spacing:10
+				padding: [0,0,50,0]
+                
+				MDTextField:
+					id: stationcode
+					multiline:False
+					required: True
+					hint_text: 'Station Code'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: stationname
+					multiline:False
+					required: True
+					hint_text: 'Station Name'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: location
+					multiline:False
+					required: True
+					hint_text: 'Station Location'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+                MDRaisedButton:
+                    valign:'center'
+                    text: 'Add Station'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+					on_release: root.addstation(stationcode.text, stationname.text, location.text)
+					
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'View Stations'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.viewstation()
+					
+<ViewStations>:
+    BoxLayout:
+        id: AfterLogin_Layout
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+            title:"Stations"
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,20,20,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5,"center_y": .5}
+                spacing:10
+
+                MDLabel:
+                    id: stations
+                    font_size: '16sp'
+                    font_name: 'VarelaRound'
+                    size_hint_x:1.0
+                    size_hint_y:None
+                    text_size: self.width,None
+                    height: self.texture_size[1]
+					
+
+<Employee>:
+    BoxLayout:
+        id: Employee
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+			title: 'Bus Managment System'
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394 ,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20,30,25,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+			
+            MDLabel:
+                text: 'Employee'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+				pos_hint: {"center_y": .5 ,"center_x": .52}
+                spacing:10
+				padding: [0,0,50,0]
+
+                MDTextField:
+					id: eid
+					multiline:False
+					required: True
+					hint_text: 'Employee ID'
+					mode: 'fill'
+					input_filler: 'int'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: employeename
+					multiline:False
+					required: True
+					hint_text: 'Employee Name'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: stationcode
+					multiline:False
+					required: True
+					hint_text: 'Station Code'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: employeetype
+					multiline:False
+					required: True
+					hint_text: 'Designation'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: salary
+					multiline:False
+					required: True
+					hint_text: 'Salary'
+					input_filler: 'int'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+                MDTextField:
+					id: bid
+					multiline:False
+					required: True
+					hint_text: 'Bus ID for employee'
+					input_filler: 'int'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+                MDRaisedButton:
+                    valign:'center'
+                    text: 'Add Employee'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.addemployee(eid.text, employeename.text, stationcode.text, employeetype.text, salary.text, bid.text)
+
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'View Employees'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.viewemployee()
+					
+
+<ViewEmployees>:
+    BoxLayout:
+        id: viewemployee
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+            title:"Employees"
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,20,20,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5,"center_y": .5}
+                spacing:10
+
+                MDLabel:
+                    id: viewemployees
+					text: 'All Data'
+                    font_size: '16sp'
+                    font_name: 'VarelaRound'
+                    size_hint_x:1.0
+                    size_hint_y:None
+                    text_size: self.width,None
+                    height: self.texture_size[1]
+					
+					
+					
+<TicketCounter>:
+	BoxLayout:
+        id: ticket
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+			title: 'Bus Managment System'
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394 ,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20,30,25,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+			
+            MDLabel:
+                text: 'Create Ticket'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+			
+			HSeparator
+			
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+				pos_hint: {"center_y": .5 ,"center_x": .52}
+                spacing:10
+				padding: [0,0,50,0]
+                
+				MDLabel:
+					text: 'Bus Details'
+					font_name: 'VarelaRound'
+					font_size: '20sp'
+					text_size: root.width-14, 14
+					color: rgba("#0e1574ff")
+					
+				MDTextField:
+					id: src
+					multiline:False
+					required: True
+					hint_text: 'Source'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: dest
+					multiline:False
+					required: True
+					hint_text: 'Destination'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+					
+				MDLabel:
+					text: 'Passanger Details'
+					font_name: 'VarelaRound'
+					font_size: '20sp'
+					text_size: root.width-14, 14
+					color: rgba("#0e1574ff")
+				
+				MDTextField:
+					id: passname
+					multiline:False
+					required: True
+					hint_text: 'Passanger Name'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: mob_no
+					multiline:False
+					required: True
+					hint_text: 'Mobile Number'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: age
+					multiline:False
+					required: True
+					hint_text: 'Age'
+					mode: 'fill'
+					input_filter: 'int'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: gender
+					multiline:False
+					required: True
+					hint_text: 'Gender'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+					
+                MDRaisedButton:
+                    valign:'center'
+                    text: 'Add Passanger'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: print('submit')
+				
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'Submit'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: print('submit')
+					
+					
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'View Passangers'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.viewpassanger()
+					
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'History'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.viewhistory()
+					
+					
+<ViewPassangers>:
+    BoxLayout:
+        id: viewpass
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+            title:"Bus Passangers"
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,20,20,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5,"center_y": .5}
+                spacing:10
+				
+				MDTextField:
+					id: busid
+					multiline:False
+					required: True
+					hint_text: 'Enter Bus id'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+					
+                MDRaisedButton:
+                    valign:'center'
+                    text: 'search'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: print('submit')
+
+                MDLabel:
+                    id: busdata
+					text: 'All Data'
+                    font_size: '16sp'
+                    font_name: 'VarelaRound'
+                    size_hint_x:1.0
+                    size_hint_y:None
+                    text_size: self.width,None
+                    height: self.texture_size[1]
+					
+					
+<ViewHistory>:
+    BoxLayout:
+        id: viewhis
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+            title:"History"
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,20,20,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5,"center_y": .5}
+                spacing:10
+				
+				MDTextField:
+					id: passid
+					multiline:False
+					required: True
+					hint_text: 'Enter Passenger name'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+					
+                MDRaisedButton:
+                    valign:'center'
+                    text: 'search'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: print('submit')
+
+                MDLabel:
+                    id: passdata
+					text: 'All Data'
+                    font_size: '16sp'
+                    font_name: 'VarelaRound'
+                    size_hint_x:1.0
+                    size_hint_y:None
+                    text_size: self.width,None
+                    height: self.texture_size[1]
+					
+					
+<BusDetails>:
+	BoxLayout:
+        id: busdet
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+			title: 'Bus Managment System'
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394 ,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20,30,25,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+			
+            MDLabel:
+                text: 'Bus Details'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+			
+			HSeparator
+			
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+				pos_hint: {"center_y": .5 ,"center_x": .52}
+                spacing:10
+				padding: [0,0,50,0]
+                
+				
+				BoxLayout:
+					orientation: 'horizontal'
+					size_hint_y:None
+					height: self.minimum_height
+					
+					MDTextField:
+						id: busid
+						multiline:False
+						required: True
+						hint_text: 'Bus ID'
+						mode: 'fill'
+						font_size: '16sp'
+						font_name: 'Mukta-SemiBold'
+						background_color: 1,1,1,0.5
+						size_hint_y:None
+						size:
+							self.texture_size
+						size: dp(200),dp(40)
+					
+					MDRaisedButton:
+						valign:'center'
+						text: 'Update'
+						font_size: '20sp'
+						font_name: 'VarelaRound'
+						on_release: print('update')
+				
+				BoxLayout:
+					orientation: 'horizontal'
+					size_hint_y:None
+					height: self.minimum_height
+					spacing:10
+					
+					BoxLayout:
+						orientation: 'vertical'
+						size_hint_y:None
+						height: self.minimum_height
+						spacing:10
+						
+						MDTextField:
+							id: busname
+							multiline:False
+							required: True
+							hint_text: 'Bus Name'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+						MDTextField:
+							id: numberplate
+							multiline:False
+							required: True
+							hint_text: 'Bus Number Plate'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+					
+					BoxLayout:
+						orientation: 'vertical'
+						size_hint_y:None
+						height: self.minimum_height
+						spacing:10
+						
+						MDTextField:
+							id: bustype
+							multiline:False
+							required: True
+							hint_text: 'Bus Type'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+					    MDTextField:
+							id: noofseats
+							multiline:False
+							required: True
+							hint_text: 'No of Seats'
+							input_filter: 'int'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+					BoxLayout:
+						orientation: 'vertical'
+						size_hint_y:None
+						height: self.minimum_height
+						spacing:10
+						
+						MDTextField:
+							id: model
+							multiline:False
+							required: True
+							hint_text: 'Model'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+					    MDTextField:
+							id: routeid
+							multiline:False
+							required: True
+							hint_text: 'Route ID'
+							mode: 'fill'
+							input_filler: 'int'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+				        MDTextField:
+							id: scode
+							multiline:False
+							required: True
+							hint_text: 'Station Code'
+							mode: 'fill'
+							font_size: '16sp'
+							font_name: 'Mukta-SemiBold'
+							background_color: 1,1,1,0.5
+							size_hint_y:None
+							size:
+								self.texture_size
+							size: dp(200),dp(40)
+
+				MDRaisedButton:
+                    valign:'center'
+                    text: 'Add Bus'
+                    font_size: '20sp'
+                    font_name: 'VarelaRound'
+                    on_release: root.addbus(busid.text, busname.text, numberplate.text, bustype.text, model.text, noofseats.text, routeid.text, scode.text)
+
+			HSeparator
+				
+			MDLabel:
+                text: 'Bus Route Creator'
+                font_name: 'VarelaRound'
+                font_size: '20sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+				
+			BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+				pos_hint: {"center_y": .5 ,"center_x": .52}
+                spacing:10
+				padding: [0,0,50,0]
+                					
+				MDTextField:
+					id: routeid
+					multiline:False
+					required: True
+					hint_text: 'Enter Route ID'
+				    input_filler: 'int'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: startstation
+					multiline:False
+					required: True
+					hint_text: 'Start Station Code'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: endstation
+					multiline:False
+					required: True
+					hint_text: 'Destination Station Code'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: distance
+					multiline:False
+					required: True
+					hint_text: 'Distance from source'
+					mode: 'fill'
+					input_filter: 'int'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+				
+				MDTextField:
+					id: departtime
+					multiline:False
+					required: True
+					hint_text: 'Departure Time'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDTextField:
+					id: routename
+					multiline:False
+					required: True
+					hint_text: 'Route Name'
+					mode: 'fill'
+					font_size: '16sp'
+					font_name: 'Mukta-SemiBold'
+					background_color: 1,1,1,0.5
+					size_hint_y:None
+					size:
+						self.texture_size
+					size: dp(200),dp(40)
+
+				MDRaisedButton:
+					valign:'center'
+					text: 'Add Route'
+					font_size: '20sp'
+					font_name: 'VarelaRound'
+					on_release: root.addroute(routeid.text, startstation.text, endstation.text, distance.text, departtime.text, routename.text)
+			
+				MDRaisedButton:
+					valign:'center'
+					text: 'View All Routes'
+					font_size: '20sp'
+					font_name: 'VarelaRound'
+					on_release: root.viewallroute()
+				
+<ViewAllRoutes>:
+    BoxLayout:
+        id: AfterLogin_Layout
+        orientation: 'vertical'
+        spacing: 20
+
+        MDToolbar:
+            title:"Routes"
+			left_action_items: [["arrow-left",lambda x: root.back()]]
+            right_action_items: [["logout",lambda x: root.disconnect()]]
+            elevation: 8
+            font_size: 16
+        Widget:
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        type:['content']
+        pos_hint: {"center_y": .394,"center_x": .52}
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [10,20,20,150]
+            size_hint_y:None
+            height: self.minimum_height
+            spacing: 20
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:None
+                height: self.minimum_height
+                pos_hint: {"center_x": .5,"center_y": .5}
+                spacing:10
+
+                MDLabel:
+                    id: route
+                    font_size: '16sp'
+                    font_name: 'VarelaRound'
+                    size_hint_x:1.0
+                    size_hint_y:None
+                    text_size: self.width,None
+                    height: self.texture_size[1]

@@ -1,0 +1,93 @@
+#:import hex kivy.utils.get_color_from_hex
+#:import win kivy.core.window
+#:include connected.kv
+
+
+<Login>:
+    BoxLayout:
+		
+        id: login_layout
+        orientation: 'vertical'
+        spacing: 10
+		# padding_left, padding_top, padding_right, padding_bottom
+        padding: [10,15,10,10]
+
+        Label:
+            text: 'Bus Managment System'
+            font_name: 'DelaGothic'
+            font_size: 25
+			color: (0,0,0)
+			text_size: self.width, None
+			size_hint_y: None
+			height: self.texture_size[1]
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            size_hint_y:-30
+            Label:
+                text: 'username'
+                font_size: '14sp'
+                font_name: 'VarelaRound'
+                halign: 'left'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+                size_hint_y:None
+                size:
+                    self.texture_size
+
+            TextInput:
+                id: login
+                multiline:False
+                font_size: '20sp'
+                font_name: 'Mukta-SemiBold'
+				background_color: 1,1,1,0.5
+                size_hint_y:None
+                size:
+                    self.texture_size
+                size: dp(275),dp(40)
+
+            Label:
+                text: 'password'
+                font_name: 'VarelaRound'
+                halign: 'left'
+                font_size: '14sp'
+                text_size: root.width-14, 14
+                color: rgba("#0e1574ff")
+                size_hint_y:None
+                size:
+                    self.texture_size
+
+            TextInput:
+                id: password
+                multiline:False
+                password:True
+                font_size: '20sp'
+                font_name: 'Mukta-SemiBold'
+				background_color: 1,1,1,0.5
+                size_hint_y:None
+
+                size:
+                    self.texture_size
+                size: dp(250),dp(40)
+
+            Label:
+                id: loginerror
+                font_name: 'VarelaRound'
+                halign: 'left'
+                font_size: '14sp'
+                text_size: root.width-14, 14
+                color: rgba("#ff0000")
+                size_hint_y:None
+                size:
+                    self.texture_size
+        Widget:
+        MDRaisedButton:
+            halign:'Center'
+            text: 'Login'
+            font_size: '24sp'
+            size_hint_x: 1
+            width: dp(100)
+            font_name: 'VarelaRound'
+            on_release: root.do_login(login.text, password.text)
+
