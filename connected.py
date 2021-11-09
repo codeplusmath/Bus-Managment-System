@@ -40,6 +40,11 @@ class Home(Screen):
         self.manager.transition = SlideTransition(direction="left")
         self.manager.current = 'busdetails'
         self.manager.get_screen('busdetails')
+    
+    def gobushaults(self):
+        self.manager.transition = SlideTransition(direction="left")
+        self.manager.current = 'bushaults'
+        self.manager.get_screen('bushaults')
 
 
 class Station(Screen):
@@ -249,3 +254,38 @@ class ViewAllRoutes(Screen):
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = 'busdetails'
         self.manager.get_screen('busdetails')
+        
+        
+class BusHaults(Screen):
+    def disconnect(self):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = 'login'
+        self.manager.get_screen('login')
+        
+    def viewbushault(self):
+        self.manager.transition = SlideTransition(direction="left")
+        self.manager.current = 'viewbushaults'
+        self.manager.get_screen('viewbushaults')
+    
+    def back(self):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = 'home'
+        self.manager.get_screen('home')
+
+class ViewBusHaults(Screen):
+    def disconnect(self):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = 'login'
+        self.manager.get_screen('login')
+        
+    def on_enter(self):
+        data = ''
+        mycursor.execute('select * from bushaults')
+        for x in mycursor:
+            data += str(x)
+        self.ids.bushaults.text = data
+    
+    def back(self):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = 'bushaults'
+        self.manager.get_screen('bushaults')

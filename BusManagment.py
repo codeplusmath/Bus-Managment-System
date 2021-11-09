@@ -33,7 +33,7 @@ class Login(Screen):
                 self.ids.loginerror.text = ""
                 self.manager.transition = SlideTransition(direction="left")
                 self.manager.current = 'home'
-                Window.size = (800, 600)
+                Window.size = (1000, 600)
                 
         else:
             self.ids.loginerror.text = "incorrect username or password"
@@ -64,7 +64,8 @@ class BusManagment(MDApp):
         manager.add_widget(ViewHistory(name='viewhistory'))
         manager.add_widget(ViewPassangers(name='viewpassangers'))
         manager.add_widget(ViewAllRoutes(name='viewallroutes'))
-        
+        manager.add_widget(ViewBusHaults(name='viewbushaults'))
+        manager.add_widget(BusHaults(name='bushaults'))
         
         return manager
 
